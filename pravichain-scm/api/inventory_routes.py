@@ -1,7 +1,7 @@
 """API routes for inventory optimization."""
 
 from fastapi import APIRouter
-from agents.inventory import main as run_inventory
+from pravichain_scm.agents.inventory import main as run_inventory
 
 router = APIRouter()
 

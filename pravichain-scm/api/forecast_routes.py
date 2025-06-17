@@ -1,7 +1,7 @@
 """API routes for demand forecast."""
 
 from fastapi import APIRouter
-from agents.forecast import main as run_forecast
+from pravichain_scm.agents.forecast import main as run_forecast
 
 router = APIRouter()
 
