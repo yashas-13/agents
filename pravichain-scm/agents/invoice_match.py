@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import pdfminer.high_level
 import pytesseract
-import psycopg2
+import sqlite3
 
 
 def extract_text(pdf_path):
@@ -21,7 +21,7 @@ def match_invoices(text, conn):
 
 
 def run(pdf_path):
-    conn = psycopg2.connect(dbname='scm', user='user', password='pass', host='localhost')
+    conn = sqlite3.connect('db/scm.sqlite')
     text = extract_text(pdf_path)
     matches = match_invoices(text, conn)
     print('Matches found:', matches)

@@ -1,6 +1,6 @@
 """Logistics Routing Agent."""
 
-import psycopg2
+import sqlite3
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
@@ -37,7 +37,7 @@ def plan_routes(df):
 
 
 def main():
-    conn = psycopg2.connect(dbname='scm', user='user', password='pass', host='localhost')
+    conn = sqlite3.connect('db/scm.sqlite')
     df = fetch_deliveries(conn)
     route = plan_routes(df)
     print('Planned route:', route)

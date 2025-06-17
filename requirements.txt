@@ -1,6 +1,5 @@
 pandas
 prophet
-psycopg2-binary
 pulp
 numpy
 fastapi
