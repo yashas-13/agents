@@ -1,0 +1,12 @@
+pandas
+prophet
+psycopg2-binary
+pulp
+numpy
+fastapi
+uvicorn
+dash
+plotly
+pdfminer.six
+pytesseract
+ortools
