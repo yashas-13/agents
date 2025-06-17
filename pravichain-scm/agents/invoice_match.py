@@ -5,6 +5,7 @@ import pandas as pd
 import pdfminer.high_level
 import pytesseract
 import sqlite3
+import sys
 
 
 def extract_text(pdf_path):
@@ -21,6 +22,14 @@ def match_invoices(text, conn):
 
 
 def run(pdf_path):
+    if not os.path.isfile(pdf_path):
+        print(f"File not found: {pdf_path}", file=sys.stderr)
+        return
+
+    if not os.path.isfile('db/scm.sqlite'):
+        print("Database db/scm.sqlite not found. Run scripts/populate_sample_db.py first.", file=sys.stderr)
+        return
+
     conn = sqlite3.connect('db/scm.sqlite')
     text = extract_text(pdf_path)
     matches = match_invoices(text, conn)
