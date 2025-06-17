@@ -20,16 +20,21 @@ def match_invoices(text, conn):
     return matches
 
 
-def main(pdf_path):
+def run(pdf_path):
     conn = psycopg2.connect(dbname='scm', user='user', password='pass', host='localhost')
     text = extract_text(pdf_path)
     matches = match_invoices(text, conn)
     print('Matches found:', matches)
 
 
-if __name__ == '__main__':
+def main():
+    """Entry point for CLI usage."""
     import sys
     if len(sys.argv) > 1:
-        main(sys.argv[1])
+        run(sys.argv[1])
     else:
-        print('Usage: python invoice_match.py <pdf_path>')
+        print('Usage: pravichain-invoice <pdf_path>')
+
+
+if __name__ == '__main__':
+    main()

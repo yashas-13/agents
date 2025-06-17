@@ -81,5 +81,10 @@ def render_content(role):
     )
 
 
-if __name__ == "__main__":
+def main():
+    """Entry point for the dashboard agent."""
     app.run(debug=True)
+
+
+if __name__ == "__main__":
+    main()

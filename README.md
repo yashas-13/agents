@@ -62,3 +62,32 @@ python dashboards/app.py
 ```
 
 These modules use placeholder logic but provide the entry points and directory structure required for the PraviChain SCM system.
+
+## Local Setup (Offline)
+
+Follow these steps to run the project without internet access:
+
+```bash
+# 1. Clone & Install
+git clone https://github.com/your-org/pravichain-scm.git
+cd pravichain-scm
+python3 -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+
+# 2. Run Agents
+python agents/forecast.py
+python agents/inventory.py
+python agents/logistics.py
+python agents/invoice_match.py
+bash agents/chatbot/llama_runner.sh
+
+# 3. Start API
+uvicorn api.main:app --host 127.0.0.1 --port 8000
+
+# 4. Start Dashboard
+cd dashboards && python app.py
+
+# 5. Optional: Dev Automation with Codex
+ollama run deepseek-coder:1.3b
+codex generate agent forecast --inputs sales.csv --output forecast.pkl --model prophet
+```
