@@ -10,3 +10,4 @@ dash-bootstrap-components
 pdfminer.six
 pytesseract
 ortools
+reportlab
