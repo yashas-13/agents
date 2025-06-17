@@ -1,6 +1,4 @@
-Of course. Here is the `README.md` upgraded with the detailed, AI-centric features, applied to the specific structure and agents you provided.
 
------
 
 # PraviChain SCM: AI-Powered Supply Chain Agents
 
