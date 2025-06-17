@@ -3,17 +3,24 @@
 import pandas as pd
 import plotly.express as px
 import numpy as np
+import sqlite3
 from dash import Dash, html, dcc, dash_table
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-# Sample data for demo purposes
+# Attempt to open the local SQLite database if available
+try:
+    DB_CONN = sqlite3.connect("db/scm.sqlite", check_same_thread=False)
+except sqlite3.Error:
+    DB_CONN = None
+
+# Fallback sample data if the database isn't available
 sales_df = pd.DataFrame(
     {
-        "date": pd.date_range("2023-01-01", periods=30),
-        "sales": np.random.randint(80, 200, size=30),
+        "ds": pd.date_range("2023-01-01", periods=30),
+        "yhat": np.random.randint(80, 200, size=30),
     }
 )
 
@@ -21,6 +28,7 @@ inventory_df = pd.DataFrame(
     {
         "sku": ["A", "B", "C"],
         "stock": np.random.randint(10, 50, size=3),
+        "location": ["WH1", "WH2", "WH3"],
     }
 )
 
@@ -30,6 +38,16 @@ routes_df = pd.DataFrame(
         "success_rate": np.random.randint(80, 99, size=3),
     }
 )
+
+
+def load_db_table(query, fallback_df):
+    """Utility to load a table from the SQLite DB with fallback."""
+    if DB_CONN is None:
+        return fallback_df
+    try:
+        return pd.read_sql(query, DB_CONN)
+    except Exception:
+        return fallback_df
 
 roles = [
     "Super Admin",
@@ -68,13 +86,18 @@ app.layout = dbc.Container(
 def render_content(role, _):
     """Render role-specific dashboard content with live updates."""
     global sales_df, inventory_df, routes_df
-    # Update sample data to simulate real-time changes
-    sales_df["sales"] += np.random.randint(-5, 6, size=len(sales_df))
-    inventory_df["stock"] += np.random.randint(-2, 3, size=len(inventory_df))
-    routes_df["success_rate"] += np.random.randint(-1, 2, size=len(routes_df))
+
+    # Load latest data from the DB if available
+    sales_df = load_db_table("SELECT ds, yhat FROM forecast", sales_df)
+    inventory_df = load_db_table(
+        "SELECT sku, stock, location FROM inventory", inventory_df
+    )
+    routes_df = load_db_table(
+        "SELECT id as route, 100 as success_rate FROM deliveries", routes_df
+    )
 
     if role == "Manufacturer":
-        fig = px.line(sales_df, x="date", y="sales", title="Weekly Sales Forecast")
+        fig = px.line(sales_df, x="ds", y="yhat", title="Weekly Sales Forecast")
         return dbc.Card(dcc.Graph(figure=fig), body=True)
 
     if role == "CFA":
@@ -92,7 +115,7 @@ def render_content(role, _):
         return dbc.Card(dcc.Graph(figure=fig), body=True)
 
     if role == "Stockist":
-        fig = px.line(sales_df, x="date", y="sales", title="Sales Overview")
+        fig = px.line(sales_df, x="ds", y="yhat", title="Sales Overview")
         return dbc.Card(dcc.Graph(figure=fig), body=True)
 
     if role == "Auditor":
