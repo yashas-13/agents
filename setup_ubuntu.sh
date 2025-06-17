@@ -11,7 +11,7 @@ sudo apt-get update && sudo apt-get -y upgrade
 sudo apt-get install -y \
     python3 python3-venv python3-pip \
     build-essential git \
-    libpq-dev tesseract-ocr \
+    sqlite3 tesseract-ocr \
     wget curl
 
 # Create Python virtual environment if not present
@@ -36,10 +36,8 @@ fi
 # Install package in editable mode
 pip install -e .
 
-# Create default PostgreSQL user and database
-sudo -u postgres psql <<'SQL'
-CREATE USER "user" WITH PASSWORD 'pass';
-CREATE DATABASE scm OWNER "user";
-SQL
+# Initialize SQLite database
+mkdir -p db
+touch db/scm.sqlite
 
 echo "Setup complete. Activate the virtual environment with 'source venv/bin/activate'"

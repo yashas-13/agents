@@ -21,7 +21,7 @@ This document outlines a modular agent-based architecture for a B2B Supply Chain
 
 ## Tech Stack
 - **Backend**: Python + FastAPI with Pydantic models.
-- **Database**: PostgreSQL or SQLite for MVP.
+- **Database**: SQLite for MVP.
 - **Messaging**: Celery/RabbitMQ for asynchronous tasks and notifications.
 - **Frontend**: Minimal dashboard using FastAPI templates or a JS framework.
 

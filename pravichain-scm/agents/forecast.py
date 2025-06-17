@@ -3,11 +3,11 @@
 from datetime import datetime
 import pandas as pd
 from prophet import Prophet
-import psycopg2
+import sqlite3
 
 
 def fetch_sales_data(conn):
-    """Fetch sales data from PostgreSQL."""
+    """Fetch sales data from SQLite."""
     query = "SELECT date, sku, quantity FROM sales_data;"
     return pd.read_sql(query, conn)
 
@@ -30,7 +30,7 @@ def store_forecast(conn, forecast_df):
 
 
 def main():
-    conn = psycopg2.connect(dbname='scm', user='user', password='pass', host='localhost')
+    conn = sqlite3.connect('db/scm.sqlite')
     df = fetch_sales_data(conn)
     model = train_forecast_model(df)
     forecast = generate_forecast(model)

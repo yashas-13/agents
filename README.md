@@ -81,7 +81,7 @@ pip install -r requirements.txt
 
 ### One-Step Setup (Ubuntu)
 
-For new Ubuntu systems, the provided script installs system dependencies, builds `llama.cpp` for the chatbot, and sets up a local PostgreSQL database.
+For new Ubuntu systems, the provided script installs system dependencies, builds `llama.cpp` for the chatbot, and sets up a local SQLite database.
 
 ```bash
 bash scripts/setup_ubuntu.sh

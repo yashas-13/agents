@@ -52,7 +52,7 @@ Output:
 
 Forecasts per region/SKU accessible via dashboard
 
-Tech Stack: Prophet, pandas, PostgreSQL
+Tech Stack: Prophet, pandas, SQLite
 
 API: REST (Flask/FastAPI) exposed under /api/forecast
 
@@ -74,7 +74,7 @@ Input: Stock levels, forecasts, lead times
 
 Output: Recommended reorder plans with alerts
 
-Tech Stack: PuLP, NumPy, PostgreSQL
+Tech Stack: PuLP, NumPy, SQLite
 
 API: /api/inventory/optimize
 
@@ -170,7 +170,7 @@ models/forecast.pkl
 
 models/tinyllama.gguf
 
-Database: PostgreSQL
+Database: SQLite
 
 Storage: /var/appdata/
 

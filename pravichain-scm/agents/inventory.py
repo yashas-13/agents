@@ -3,7 +3,7 @@
 import numpy as np
 import pandas as pd
 import pulp as pl
-import psycopg2
+import sqlite3
 
 
 def fetch_stock_levels(conn):
@@ -28,7 +28,7 @@ def store_reorder_plan(conn, plan_df):
 
 
 def main():
-    conn = psycopg2.connect(dbname='scm', user='user', password='pass', host='localhost')
+    conn = sqlite3.connect('db/scm.sqlite')
     df = fetch_stock_levels(conn)
     plan = optimize_reorder(df)
     store_reorder_plan(conn, plan)
