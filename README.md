@@ -91,3 +91,16 @@ cd dashboards && python app.py
 ollama run deepseek-coder:1.3b
 codex generate agent forecast --inputs sales.csv --output forecast.pkl --model prophet
 ```
+
+## One-step Setup (Ubuntu)
+
+For new Ubuntu systems, run the provided script to install all required packages
+and prepare a local database:
+
+```bash
+bash setup_ubuntu.sh
+```
+
+The script installs system dependencies, creates a Python virtual environment,
+builds `llama.cpp` for the chatbot agent, and sets up a PostgreSQL database
+`scm` with username `user` and password `pass`.
