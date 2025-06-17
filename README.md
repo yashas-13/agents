@@ -21,6 +21,7 @@ This document outlines the core architecture and operational instructions. For o
   - **🤖 Conversational AI Assistant**: An integrated, offline chatbot for natural language queries about stock and orders.
   - **📊 Interactive Dashboard**: A central UI for visualizing the entire SCM workflow, running what-if scenarios, and generating reports.
   - **🔒 100% Offline & Secure**: All agents run locally. No data ever leaves your premises.
+  - **📝 Manufacturer Admin Registration**: Simple web form at `/register` to create manufacturer admin accounts.
 
 ## 🏛️ System Architecture & Agent Roles
 
@@ -75,7 +76,10 @@ source venv/bin/activate
 # 3. Install all required packages
 pip install -r requirements.txt
 
-# 4. Download required AI models (e.g., the chatbot LLM)
+# 4. Prepare the local SQLite database with sample data
+python scripts/populate_sample_db.py
+
+# 5. Download required AI models (e.g., the chatbot LLM)
 # Ensure the correct .gguf model file is placed in the models/ directory
 ```
 
@@ -117,6 +121,7 @@ The API server exposes agent functionalities over a local network.
 ```bash
 uvicorn api.main:app --host 127.0.0.1 --port 8000
 ```
+Then open `http://127.0.0.1:8000/register` in your browser to create a manufacturer admin account.
 
 ### 3\. Launch the Interactive Dashboard
 
