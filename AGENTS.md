@@ -219,3 +219,14 @@ Audit Logs: Every update stored with timestamps/user
 
 No API keys or 3rd-party model calls required
 
+
+## Role to Agent Matrix
+
+| Role | Key Agents & Features |
+| --- | --- |
+| Super Admin | Dashboard Agent for monitoring, Demand Forecast Agent for planning, Inventory Optimization Agent, Logistics Routing Agent, Invoice Reconciliation Agent, Chatbot Agent |
+| Manufacturer | Demand Forecast Agent for production planning, Logistics Routing Agent for dispatch, Invoice Reconciliation Agent, Chatbot Agent |
+| CFA | Inventory Optimization Agent, Logistics Routing Agent, Invoice Reconciliation Agent, Chatbot Agent |
+| Super Stockist | Demand Forecast Agent, Inventory Optimization Agent, Logistics Routing Agent, Chatbot Agent |
+| Stockist | Inventory Optimization Agent for reorder alerts, Chatbot Agent for queries, Dashboard Agent for sales charts |
+| Auditor | Invoice Reconciliation Agent for compliance, Logistics Routing Agent for route cost analysis, Dashboard Agent for reports |
