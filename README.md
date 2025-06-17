@@ -130,3 +130,12 @@ This is the primary user interface for visualizing data and reports.
 ```bash
 python dashboards/app.py
 ```
+
+### 4\. Run Automated Tests
+
+After installing the requirements you can execute the test suite to verify that
+all agents operate correctly:
+
+```bash
+pytest -q
+```
